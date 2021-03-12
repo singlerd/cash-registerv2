@@ -26,6 +26,14 @@
         text-align:center
     }
 
+    .measure{
+        width: 50px;
+        text-align:center;
+    }
+    .txtCenter{
+        text-align:center
+    }
+
 </style>
 <body>
 <div class="inline">
@@ -36,6 +44,10 @@
     <tr>
         <th>
             Naziv pića
+        </th>
+
+        <th class="measure">
+            Jedinica mere
         </th>
 
         <th>
@@ -62,26 +74,58 @@
         </th>
     </tr>
     </thead>
+    @php
+        $sum = 0
+    @endphp
     @foreach($currentStates as $cs)
         @php
             $total = $cs->transferred_quantity + $cs->purchase_quantity;
             $sale_quantity = $cs->purchase_quantity * $cs->countSale;
             $total_drinks_sold = $cs->sold_price * $cs->countSale;
-            $total_sum =  $total -  $sale_quantity
+            $total_sum =  $total -  $sale_quantity;
+
         @endphp
         <tbody>
             <tr>
                 <td class="alignFirst">{{$cs->name}}</td>
+                <td class="measure">{{$cs->measure_per_bottle}}</td>
                 <td class="alignTd">{{$cs->transferred_quantity}}</td>
                 <td class="alignTd">{{$cs->purchase_quantity}}</td>
                 <td class="alignTd">{{number_format($total,2)}}</td>
                 <td class="alignTd">{{number_format($sale_quantity, 2)}}</td>
-                <td class="alignTd">{{$cs->sold_price}}</td>
+                <td class="alignTd">{{$cs->purchase_price}}</td>
                 <td class="alignTd">{{number_format($total_drinks_sold, 2)}}</td>
                 <td class="alignTd">{{number_format($total_sum, 2)}}</td>
+
             </tr>
+
+            @php
+                $sum += $total_drinks_sold;
+            @endphp
+     @endforeach
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="txtCenter"><strong>UKUPNO</strong></td>
+                <td></td>
+            </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><div class="txtCenter"><strong>{{number_format($sum,2)}}</strong></div></td>
+            <td></td>
+        </tr>
         </tbody>
-    @endforeach
 </table>
 </body>
 </html>

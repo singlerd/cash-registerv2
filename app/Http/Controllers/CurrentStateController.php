@@ -46,7 +46,7 @@ class CurrentStateController extends Controller
 //            ->get();
 
         $sql = "
-                SELECT b.on_sale,a.current_state_id ,d.name, a.transferred_quantity,a.purchase_quantity,COUNT(b.current_state_id) as countSale,d.sold_price, b.current_state_id AS current_state_id_from_sales, m.measure FROM
+                SELECT b.on_sale,a.current_state_id ,d.name, a.transferred_quantity,a.purchase_quantity,COUNT(b.current_state_id) as countSale,d.sold_price, b.current_state_id AS current_state_id_from_sales, m.measure, m.measure_per_bottle,d.purchase_price  FROM
                 (SELECT * FROM current_states) a
                 LEFT JOIN (SELECT current_state_id,on_sale FROM sales) b
                 ON a.current_state_id = b.current_state_id
@@ -54,7 +54,7 @@ class CurrentStateController extends Controller
                 ON a.drink_id = d.drink_id
                 JOIN `measures` m
                 ON d.measure_id =  m.id_measure
-                GROUP BY a.current_state_id, b.current_state_id, b.on_sale
+                GROUP BY a.current_state_id, b.current_state_id, b.on_sale, m.measure_per_bottle, d.purchase_price
                 ";
         $currentStates =  DB::select($sql);
         $data['current-states'] = $currentStates;
@@ -89,7 +89,7 @@ class CurrentStateController extends Controller
     public function print()
     {
         $sql = "
-                SELECT b.on_sale,a.current_state_id ,d.name, a.transferred_quantity,a.purchase_quantity,COUNT(b.current_state_id) as countSale,d.sold_price, b.current_state_id AS current_state_id_from_sales, m.measure FROM
+                SELECT b.on_sale,a.current_state_id ,d.name, a.transferred_quantity,a.purchase_quantity,COUNT(b.current_state_id) as countSale,d.sold_price, b.current_state_id AS current_state_id_from_sales, m.measure,m.measure_per_bottle,d.purchase_price  FROM
                 (SELECT * FROM current_states) a
                 LEFT JOIN (SELECT current_state_id,on_sale FROM sales) b
                 ON a.current_state_id = b.current_state_id
@@ -97,7 +97,7 @@ class CurrentStateController extends Controller
                 ON a.drink_id = d.drink_id
                 JOIN `measures` m
                 ON d.measure_id =  m.id_measure
-                GROUP BY a.current_state_id, b.current_state_id, b.on_sale
+                GROUP BY a.current_state_id, b.current_state_id, b.on_sale,m.measure_per_bottle,d.purchase_price
                 ";
         $currentStates =  DB::select($sql);
 

@@ -78,25 +78,47 @@
                                 <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs">
                                     Naziv pića
                                 </th>
+                                <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs">
+                                    Jedinica Mere
 
+                                </th>
                                 <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs">
                                     Preneta količina
+                                    <div class="text-left">
+                                        <strong class="text-red-700" >L</strong>
+                                    </div>
                                 </th>
 
                                 <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs">
                                     Nab. Kol. Pića
+                                    <div class="text-left">
+                                        <strong class="text-red-700 ">L</strong>
+                                    </div>
                                 </th>
                                 <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs">
                                     Ukupno
+                                    <div class="text-left">
+                                        <strong class="text-red-700 " style="font-size: 0.5rem;">L</strong>
+                                    </div>
                                 </th>
                                 <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs">
                                     Prodata količina
+                                    <br>
+
                                 </th>
                                 <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs">
                                     Prodajna Cena
+                                    <br>
+                                    <div class="text-left">
+                                        <strong class="text-red-700 " style="font-size: 0.5rem;">izražena u dinarima</strong>
+                                    </div>
                                 </th>
                                 <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs">
                                    Iznos pića
+                                    <br>
+                                    <div class="text-left">
+                                        <strong class="text-red-700 " style="font-size: 0.5rem;">izražena u dinarima</strong>
+                                    </div>
                                 </th>
                                 <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-xs">
                                    <div class="text-center"><strong><u>Ostalno na zalihi</u></strong></div>
@@ -106,7 +128,10 @@
                         <tbody class="bg-white text-xs divide-y divide-gray-200" id="fetchQuantityTable">
 
                         </tbody>
+
                     </table>
+            {{--                        TOTAL--}}
+
                 </div>
        </div>
     </div>
