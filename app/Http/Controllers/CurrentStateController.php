@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\DB;
 
 class CurrentStateController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * Store current state. At the beginning check if exists.
+     */
+
     public function storeCurrentState(Request $request)
     {
         $request->validate([
@@ -31,6 +37,11 @@ class CurrentStateController extends Controller
             return redirect()->route('add-current-state')->with('success', 'Uspešno sačuvano u bazi podataka.');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * Delete the specified current state
+     */
     public function deleteCurrentState(Request $request)
     {
         $deleteCurrentState = DB::table('current_states')->where('id_current_state',$request->id_current_state)->delete();
@@ -38,15 +49,15 @@ class CurrentStateController extends Controller
             return redirect()->route('add-current-state')->with('success', 'Uspešno ste izbrisali podatke.');
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * Getting current states with raw sql. This method is used for API
+     */
     public function getCurrentStates()
     {
-//        $currentStates =  DB::table("current_states")->select('current_states.*','drinks.*','sales.*')
-//            ->join('drinks','current_states.drink_id' ,'=', 'drinks.drink_id')
-//            ->leftJoin(DB::raw("(SELECT SUM(sales.current_state_id) AS sumed FROM sales) `sales` "), "current_states.current_state_id", "sales.current_state_id")
-//            ->get();
 
         $sql = "
-                SELECT b.on_sale,a.current_state_id ,d.name, a.transferred_quantity,a.purchase_quantity,COUNT(b.current_state_id) as countSale,d.sold_price, b.current_state_id AS current_state_id_from_sales, m.measure, m.measure_per_bottle,d.purchase_price  FROM
+                SELECT b.on_sale,a.current_state_id ,d.drink_name, a.transferred_quantity,a.purchase_quantity,COUNT(b.current_state_id) as countSale,d.sold_price, b.current_state_id AS current_state_id_from_sales, m.measure, m.measure_per_bottle,d.purchase_price  FROM
                 (SELECT * FROM current_states) a
                 LEFT JOIN (SELECT current_state_id,on_sale FROM sales) b
                 ON a.current_state_id = b.current_state_id
@@ -62,6 +73,13 @@ class CurrentStateController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * This method is used for updating one field in current-states/change (Promena stanja)
+     * Used for fifth column, when user change the value
+     */
     public function updatePurchasingDrink($id, Request $request)
     {
         $updated_data = DB::table('current_states')->where('current_state_id',$id)->update(['purchase_quantity' => $request->data]);
@@ -70,6 +88,13 @@ class CurrentStateController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * This method is used for updating one field in current-states/change (Promena stanja)
+     * Used for fourth column, when user change the value
+     */
     public function updateTransferredQuantity($id, Request $request)
     {
         $updated_data = DB::table('current_states')->where('current_state_id',$id)->update(['transferred_quantity' => $request->data]);
@@ -78,18 +103,14 @@ class CurrentStateController extends Controller
         return response()->json($data);
     }
 
-    public function updateTotalSale($id, Request $request)
-    {
-        $updated_data = DB::table('current_states')->where('current_state_id',$id)->update(['purchase_quantity' => $request->data]);
-        $data['update-current-states'] = $updated_data;
-
-        return response()->json($data);
-    }
-
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * This method is used for printing actual data in current state
+     */
     public function print()
     {
         $sql = "
-                SELECT b.on_sale,a.current_state_id ,d.name, a.transferred_quantity,a.purchase_quantity,COUNT(b.current_state_id) as countSale,d.sold_price, b.current_state_id AS current_state_id_from_sales, m.measure,m.measure_per_bottle,d.purchase_price  FROM
+                SELECT b.on_sale,a.current_state_id ,d.drink_name, a.transferred_quantity,a.purchase_quantity,COUNT(b.current_state_id) as countSale,d.sold_price, b.current_state_id AS current_state_id_from_sales, m.measure,m.measure_per_bottle,d.purchase_price  FROM
                 (SELECT * FROM current_states) a
                 LEFT JOIN (SELECT current_state_id,on_sale FROM sales) b
                 ON a.current_state_id = b.current_state_id

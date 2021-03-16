@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\DB;
 
 class SoldController extends Controller{
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * Store sold, then redirect the user
+     *
+     */
     public function storeSold(Request $request)
     {
 
@@ -15,12 +21,15 @@ class SoldController extends Controller{
             $sold = DB::table("solds")->insert(['id_sale' =>  $one_field]);
             DB::table("sales")->update(['on_sale' =>  0]);
         }
-        if($sold)
-//            Sale::truncate();
 
         return redirect()->route('add-sale');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * Count sold
+     */
     public function countSold($id)
     {
         $count = DB::table("sales")->where('id_current_state', '=' ,$id)->count();

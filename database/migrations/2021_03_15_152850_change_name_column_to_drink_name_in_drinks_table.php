@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddMeasurePerBottleColumnInMeasuresTable extends Migration
+class ChangeNameColumnToDrinkNameInDrinksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddMeasurePerBottleColumnInMeasuresTable extends Migration
      */
     public function up()
     {
-        Schema::table('measures', function (Blueprint $table) {
-            $table->string('measure_per_bottle')->after('measure');
+        Schema::table('drinks', function (Blueprint $table) {
+            $table->renameColumn('name', 'drink_name');
         });
     }
 
@@ -25,8 +25,8 @@ class AddMeasurePerBottleColumnInMeasuresTable extends Migration
      */
     public function down()
     {
-        Schema::table('measures', function (Blueprint $table) {
-            //
+        Schema::table('drinks', function (Blueprint $table) {
+            $table->renameColumn('drink_name', 'name');
         });
     }
 }

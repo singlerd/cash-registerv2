@@ -1,11 +1,14 @@
 $(document).ready(function(){
-
+    //event listener for printing
     $('#btnPrint').printPage();
 
+    //Initialize fetchSolds function
     fetchSolds()
 
+    //Add meta tag for CRSF token
     let CSRF_TOKEN =  $('meta[name="csrf-token"]').attr('content')
 
+    //Store sale when user is clicked on button (Plaćeno)
     $(document).on("click",".btnSale",function(){
         $.ajax({
             url: '../storeSale',
@@ -19,6 +22,8 @@ $(document).ready(function(){
         });
     });
 
+    //Fetch sold when user clicked on drink in sales
+    //START
     function fetchSolds(){
         $.ajax({
            url: '../getSale',
@@ -27,19 +32,19 @@ $(document).ready(function(){
            success: function (response) {
                $("#fetchSolds").empty()
                    let len = 0;
-                   if (response['data'] != null) {
-                       len = response['data'].length;
+                   if (response['sale'] != null) {
+                       len = response['sale'].length;
                    }
                    if (len > 0) {
                        for (let i = 0; i < len; i++) {
-                           let sale_id = response['data'][i].sale_id;
-                           let name = response['data'][i].name;
-                           let measure = response['data'][i].measure;
+                           let sale_id = response['sale'][i].sale_id;
+                           let drink_name = response['sale'][i].drink_name;
+                           let measure = response['sale'][i].measure;
 
                            let output =
                                "<div class='inline-block p-1'>" +
                                    "<div class=\"bg-blue-600 text-white p-2 rounded  leading-none flex items-center\">" +
-                                            "   <span class=\"bg-white p-1 rounded text-blue-600 text-xs ml-2\">"+name+" - "+(measure)+
+                                            "   <span class=\"bg-white p-1 rounded text-blue-600 text-xs ml-2\">"+drink_name+" - "+(measure)+
                                                 "<input type='hidden' value='"+sale_id+"' name='sale_id[]'>" +
                                                "<a class='cursor-pointer' id='delete' data-id='"+sale_id+"'>" +
                                                    "<svg class='inline' width='15' xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\">\n" +
@@ -50,15 +55,19 @@ $(document).ready(function(){
                                     "</div>" +
                                "</div>"
                            $("#fetchSolds").append(output);
+                            // countSale()
                        }
                    } else {
-                       let output = "<p>Nema nista</p>";
+                       let output = "<p>Nemate ništa u kasi.</p>";
                        $("#fetchSolds").append(output);
                    }
                }
         });
     }
+    //END
 
+    //Delete drink from sales
+    //START
     $(document).on("click","#delete",function () {
             let el = this;
             let deleteId = $(this).data('id');
@@ -79,73 +88,37 @@ $(document).ready(function(){
                 });
             }
     });
+    //END
 
+    //Button for excel in current state
     $(document).on("click","#makeExcelFile",function () {
         $("#current-states-table").table2excel({
             filename: "excel_sheet-name.xls"
         });
     })
 
-
-    document.querySelector('#pdfmake').addEventListener('click', downloadPDFWithPDFMake);
 });
 
-
-// START: pdfmake
-function downloadPDFWithPDFMake() {
-    var tableHeaderText = [...document.querySelectorAll('#current-states-table thead tr th')].map(thElement => ({ text: thElement.textContent, style: 'tableHeader' }));
-
-    var tableRowCells = [...document.querySelectorAll('#current-states-table tbody tr td')].map(tdElement => ({ text: tdElement.textContent, style: 'tableData' }));
-    var tableDataAsRows = tableRowCells.reduce((rows, cellData, index) => {
-        if (index % 9 === 0) {
-            rows.push([]);
-        }
-
-        rows[rows.length - 1].push(cellData);
-        return rows;
-    }, []);
-    let today = new Date();
-    let currentDate = today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear()
-    var docDefinition = {
-
-        header: { text: 'Obračun ' + currentDate, alignment: 'center' },
-        footer: function(currentPage, pageCount) { return ({ text: `Strana ${currentPage} od ${pageCount}`, alignment: 'right' }); },
-        content: [
-            {
-                style: 'tableExample',
-                table: {
-                    headerRows: 1,
-                    body: [
-                        tableHeaderText,
-                        ...tableDataAsRows,
-                    ]
-                },
-                layout: {
-                    fillColor: function(rowIndex) {
-                        if (rowIndex === 0) {
-                            return '#0f4871';
-                        }
-                        return (rowIndex % 2 === 0) ? '#f2f2f2' : null;
-                    }
-                },
-            },
-        ],
-        styles: {
-            tableExample: {
-                margin: [0, 5, 0, 10],
-            },
-            tableHeader: {
-                margin: 3,
-                color: 'white',
-            },
-            tableData: {
-                margin:3,
-            },
-        },
-    };
-    let now = Date.now()
-    pdfMake.createPdf(docDefinition).download("FlashRoyal" + now);
-}
-
-document.querySelector('#pdfmake').addEventListener('click', downloadPDFWithPDFMake);
-// END: pdfmake
+// Count sale, stop the redirection
+// function countSale() {
+//     $.ajax({
+//         url: '../countSale',
+//         type: 'GET',
+//         dataType: 'JSON',
+//         success: function (response) {
+//             console.log(response['count_sale'])
+//
+//             let count_sale = response['count_sale'];
+//             if(count_sale > 0) {
+//
+//                 $("a").click(function (event) {
+//                     alert("Niste naplatili piće, tek nakon naplate možete da pređete na drugu stranicu")
+//                     event.preventDefault();
+//                     $('<div></div>')
+//                         .append('default ' + event.type + ' prevented')
+//                         .appendTo('#log');
+//                 });
+//             }
+//         }
+//     });
+// }

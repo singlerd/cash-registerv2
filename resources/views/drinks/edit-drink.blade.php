@@ -27,9 +27,9 @@
                                             <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                                 <div class="flex flex-col">
                                                     <label class="leading-loose">Jedinica mere</label>
-                                                    <select name="measures" id="measures" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
+                                                    <select name="measure_id" id="measures" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
                                                         @foreach($measures as $measure)
-                                                            <option value="{{$measure->id_measure}}">{{$measure->measure}}</option>
+                                                            <option value="{{$measure->id_measure}}">{{$measure->name}}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('name')
@@ -40,7 +40,7 @@
                                                 </div>
                                                 <div class="flex flex-col">
                                                     <label class="leading-loose">Naziv Pića</label>
-                                                    <input type="text" name="name" value="{{$drink->name}}" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="primer: 'Jelen pivo'">
+                                                    <input type="text" name="drink_name" value="{{$drink->drink_name}}" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="primer: 'Jelen pivo'">
                                                     @error('name')
                                                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                                                         <span class="block sm:inline"> {{ $message }}</span>

@@ -26,9 +26,27 @@
                                         <div class="divide-y divide-gray-200">
                                             <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                                 <div class="flex flex-col">
+                                                    <label class="leading-loose">Naziv Merne jedinica</label>
+                                                    <input type="text" name="name_measure"  class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="primer: '0.5l flasa'" value="{{$measure->name }}">
+                                                    @error('name_measure')
+                                                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                                        <span class="block sm:inline"> {{ $message }}</span>
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="flex flex-col">
                                                     <label class="leading-loose">Merna jedinica</label>
-                                                    <input type="text" name="measure" value="{{$measure->measure}}" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="primer: 'Jelen pivo'">
+                                                    <input type="text" name="measure"  class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="primer: '0.5'" value="{{$measure->measure }}">
                                                     @error('measure')
+                                                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                                        <span class="block sm:inline"> {{ $message }}</span>
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="flex flex-col">
+                                                    <label class="leading-loose">Merna jedinica po flasi</label>
+                                                    <input type="text" name="measure_per_bottle"  class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="primer: '1/1, kom'" value="{{$measure->measure_per_bottle }}">
+                                                    @error('measure_per_bottle')
                                                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                                                         <span class="block sm:inline"> {{ $message }}</span>
                                                     </div>

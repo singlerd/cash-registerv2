@@ -87,7 +87,7 @@
         @endphp
         <tbody>
             <tr>
-                <td class="alignFirst">{{$cs->name}}</td>
+                <td class="alignFirst">{{$cs->drink_name}}</td>
                 <td class="measure">{{$cs->measure_per_bottle}}</td>
                 <td class="alignTd">{{$cs->transferred_quantity}}</td>
                 <td class="alignTd">{{$cs->purchase_quantity}}</td>

@@ -24,7 +24,7 @@
                             <div class="w-60 h-60 m-2 hover:-mt-1 border-4 border-orange-600  cursor-pointer hover:shadow-lg">
                                 <input type="hidden" name="current_state_id" id="current_state_id"  value="{{$currentStateAndDrink->current_state_id}}">
                                 <img class="w-full h-full object-scale-down" src="{{asset('storage/drinks/'.$currentStateAndDrink->drink_image)}}" />
-                                <div class="text-center text-2xl font-bold pt-2.5">{{$currentStateAndDrink->name}}</div>
+                                <div class="text-center text-2xl font-bold pt-2.5">{{$currentStateAndDrink->drink_name}}</div>
                             </div>
                         </button>
                     </div>

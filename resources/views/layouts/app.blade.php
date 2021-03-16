@@ -19,20 +19,7 @@
             crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jeditable.js/2.0.18/jquery.jeditable.min.js" integrity="sha512-Jn+modod+CgT0sdSdiL5Zr74JeTDTR2DGzeSRG1oUVnZjZFnkdSPOFUiwAr/St/lIvYEyBaZ6F46vJE4fbHg6A==" crossorigin="anonymous"></script>
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
 
-        <script src="{{ asset('js/jquery-jeditable.js') }}" defer></script>
-
-        <script src="{{ asset('js/jquery.printPage.js') }}" defer></script>
-
-        <script src="{{ asset('js/pdfmake.0.1.68.min.js') }}" defer></script>
-
-        <script src="{{ asset('js/pdfmake.vfs_fonts.0.1.68.min.js') }}" defer></script>
-
-        <script src="{{ asset('js/jquery-table2excel.js') }}" defer></script>
-
-        <script src="{{ asset('js/custom.js') }}" defer></script>
 
     </head>
     <body class="font-sans antialiased">
@@ -84,5 +71,15 @@
                 </div>
             </div>
         </footer>
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
+        <script src="{{ asset('js/jquery.printPage.js') }}" defer></script>
+
+       <script  src="{{ asset('js/jquery-table2excel.js') }}" defer></script>
+
+      <script  src="{{ asset('js/jquery-jeditable.js') }}" defer></script>
+
+        <script src="{{ asset('js/custom.js') }}" defer></script>
     </body>
 </html>

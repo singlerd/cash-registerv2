@@ -25,7 +25,7 @@
                                 </span>
                                 <select name="drink" id="" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300">
                                     @foreach($drinks as $drink)
-                                        <option value="{{$drink->drink_id}}">{{$drink->name}}</option>
+                                        <option value="{{$drink->drink_id}}">{{$drink->drink_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -55,6 +55,9 @@
                         </th>
                         <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Naziv pića
+                        </th>
+                        <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Jedinica mere
                         </th>
 
                         <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">

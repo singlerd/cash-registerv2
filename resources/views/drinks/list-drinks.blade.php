@@ -41,7 +41,7 @@
                                 @foreach($drinks as $drink)
                                     <tbody class="bg-white text-xs divide-y divide-gray-200">
                                         <tr>
-                                            <td class="px-3 py-3">{{$drink->name}}</td>
+                                            <td class="px-3 py-3">{{$drink->drink_name}}</td>
                                             <td class="px-3 py-3">{{$drink->measure}}</td>
                                             <td class="px-2 py-3">{{$drink->manufacturer}}</td>
                                             <td class="px-3 py-3">{{$drink->purchase_price}}</td>

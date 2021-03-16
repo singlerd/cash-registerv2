@@ -75,7 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/updatePurchasingDrink{id}', [\App\Http\Controllers\CurrentStateController::class, 'updatePurchasingDrink'])->name('update-purchase-drink');
     Route::post('/updateTransferredQuantity{id}', [\App\Http\Controllers\CurrentStateController::class, 'updateTransferredQuantity'])->name('update-transferred-quantity');
     Route::post('/updateTotalSale{id}', [\App\Http\Controllers\CurrentStateController::class, 'updateTotalSale'])->name('update-total-sale');
-
+    Route::get('/countSale', [\App\Http\Controllers\SaleController::class, 'countSale'])->name('count-sale');
 });
 
 
